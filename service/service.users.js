@@ -8,9 +8,9 @@ async function ManagerReservas(id_user){
     const reservas = await Repouser.ManagerReservas(id_user)
     return reservas
 }
-async function Inserir(name, email, password){
+async function Inserir(name, email,telefone, password){
     const hashpassword = await bcrypt.hash(password,10)
-    const user = await Repouser.Inserir(name, email, hashpassword)
+    const user = await Repouser.Inserir(name, email,telefone, hashpassword)
     user.token = token.CreateToken(user.id_user)
     return user
 }

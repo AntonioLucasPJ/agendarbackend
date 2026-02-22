@@ -30,14 +30,11 @@ async function Create(name, speality, icon) {
 
 
 async function Edit(id, name, speality, icon) {
-
     //Simula o acesso ao banco
     let sql = `update mecanicos set name=?,specialty=?,icon=? WHERE id_mecanico =?`
     await query(sql, [name, speality, icon,id])
     return { id }
-
 }
-
 async function Delet(id) {
     //Simula o acesso ao banco
     let sql = `delete from mecanicos where id_mecanico =?`

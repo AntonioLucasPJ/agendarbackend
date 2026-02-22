@@ -1,9 +1,9 @@
 import { query } from "../database/sqlite.js"
-async function Inserir(name, email, hashpassword) {
+async function Inserir(name, email,telefone, hashpassword) {
     let sql = `
-    INSERT INTO users(name, email, password) VALUES(?,?,?)
+    INSERT INTO users(name, email,telefone, password) VALUES(?,?,?,?)
     returning id_user`
-    const createuser = await query(sql, [name, email, hashpassword])
+    const createuser = await query(sql, [name, email,telefone, hashpassword])
     return createuser[0];
 }
 async function ListarEmail(email){
