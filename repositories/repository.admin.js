@@ -18,4 +18,5 @@ async function ListarEmail(email) {
     return admin[0]
 
 }
+
 export default { Create, ListarEmail }

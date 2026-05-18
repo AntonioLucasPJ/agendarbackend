@@ -1,13 +1,17 @@
 import servicosusers from '../service/service.users.js'
 async function Inserir(req, res) {
-    const { name, email,telefone, password } = req.body;
-    const users = await servicosusers.Inserir(name, email,telefone, password)
+    const { name, email,cpf,telefone, password } = req.body;
+    console.log(name)
+    const users = await servicosusers.Inserir(name, email,cpf,telefone, password)
+    console.log(users)
+    if(users =="Já existe este CPF ou email cadastrado na base"){
+        res.status(302).json(users)
+    }
     res.status(200).json(users)
 }
 async function Login(req, res) {
     const { email, password } = req.body;
     const users = await servicosusers.Login(email, password)
-
     if (users.length == 0) {
         res.status(401).json({ message: 'Email ou senha não encontrado!!' })
     } else {
@@ -15,8 +19,7 @@ async function Login(req, res) {
     }
 }
 async function Profile(req,res){
-    const {id_user} =  req;
-    const profile = await servicosusers.Profile(id_user)
-    res.status(200).json({profile})
+    const profile = await servicosusers.Profile()
+    res.status(200).json(profile)
 }
 export default { Inserir, Login, Profile }

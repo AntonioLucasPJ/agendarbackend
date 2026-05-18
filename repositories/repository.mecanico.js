@@ -3,7 +3,16 @@ import { query } from "../database/sqlite.js"
 async function Listar(name) {
     //Simula o acesso ao banco
     let filtro = [];
-    let sql = `select * from mecanicos `
+    let sql = `select 
+    id_mecanico,
+    name,
+    specialty,
+    icon,
+    CASE
+        WHEN ativo =1 THEN 'Ativo'
+        ELSE 'Inativo'
+    END AS 'situacao'
+    from mecanicos `
     if (name) {
         sql = sql + 'where name like ? ';
         filtro.push('%' + name + '%')

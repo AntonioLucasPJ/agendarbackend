@@ -1,9 +1,9 @@
 import { query } from "../database/sqlite.js"
-async function Inserir(name, email,telefone, hashpassword) {
+async function Inserir(name, email,cpf,telefone, hashpassword) {
     let sql = `
-    INSERT INTO users(name, email,telefone, password) VALUES(?,?,?,?)
+    INSERT INTO users(name, email,cpf,telefone, password) VALUES(?,?,?,?,?)
     returning id_user`
-    const createuser = await query(sql, [name, email,telefone, hashpassword])
+    const createuser = await query(sql, [name, email,cpf,telefone, hashpassword])
     return createuser[0];
 }
 async function ListarEmail(email){
@@ -15,10 +15,18 @@ async function ListarEmail(email){
     }
     return user[0]
 }
-async function Profile(id_user){
-    
-    let sql =  'SELECT * FROM  users WHERE id_user =?'
-    const profile = await query(sql,[id_user])
-    return profile[0]
+async function ListarCPF(cpf){
+    let sql = `
+    SELECT * FROM users where cpf=?`
+    const user = await query(sql,[cpf])
+    if(user.length ==0){
+        return []
+    }
+    return user[0]
 }
-export default {Inserir, ListarEmail, Profile}
+async function Profile(){
+    let sql =  'SELECT * FROM  users '
+    const profile = await query(sql)
+    return profile
+}
+export default {Inserir, ListarEmail,ListarCPF, Profile}

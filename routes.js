@@ -17,13 +17,13 @@ routes.get("/mecanicos/:id/services",token.ValidateToken,controllermecanicos.Lis
 routes.post('/users/singup',controlleusers.Inserir)
 routes.post('/users/login',controlleusers.Login)
 routes.get('/users/profile',token.ValidateToken,controlleusers.Profile)
-
 //Reservas
 routes.get('/appointements',token.ValidateToken,controlerAppointments.Reservas)
 routes.post('/appointements',token.ValidateToken,controlerAppointments.Inserir)
 routes.put('/appointments/edit/:id_appointment',token.ValidateToken,controlerAppointments.Edit)
+routes.post('/appointments/filter',token.ValidateToken,controlerAppointments.Filter)
 routes.delete('/appointments/delete/:id_appointment',token.ValidateToken,controlerAppointments.Delete)
-
+routes.post('/appointements/check',token.ValidateToken,controlerAppointments.HorariosCheck)
 //Manager Web
 routes.get('/appointmentsall',token.ValidateToken,controlerAppointments.ManagerReservas)
 
