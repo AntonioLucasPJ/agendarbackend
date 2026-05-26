@@ -6,8 +6,12 @@ async function Listar(name) {
     let sql = `select 
     id_mecanico,
     name,
+    titulo_profissional,
     specialty,
     icon,
+    avatar_url,
+    avaliacao,
+    experiencia,
     CASE
         WHEN ativo =1 THEN 'Ativo'
         ELSE 'Inativo'
@@ -30,8 +34,9 @@ async function Create(name, speality, icon) {
     } else {
         //Simula o acesso ao banco
         let sql = `
-    INSERT INTO mecanicos(name,specialty,icon) VALUES(?,?,?)
-    returning id_mecanico`
+        INSERT INTO mecanicos(name,specialty,icon) VALUES(?,?,?)
+        returning id_mecanico
+        `
         const createmecanicos = await query(sql, [name, speality, icon])
         return createmecanicos
     }
@@ -41,7 +46,7 @@ async function Create(name, speality, icon) {
 async function Edit(id, name, speality, icon) {
     //Simula o acesso ao banco
     let sql = `update mecanicos set name=?,specialty=?,icon=? WHERE id_mecanico =?`
-    await query(sql, [name, speality, icon,id])
+    await query(sql, [name, speality, icon, id])
     return { id }
 }
 async function Delet(id) {
@@ -50,15 +55,15 @@ async function Delet(id) {
     await query(sql, [id])
     return { id }
 }
-async function ListarServicos(id){
+async function ListarServicos(id) {
     let sql = `
-    SELECT S.id_service,S.description,M.price
+    SELECT S.id_service,S.service,S.description,M.price
     FROM mecanicos_services M
     JOIN services S on (S.id_service = M.id_service)
     where m.id_mecanico =?
     order by S.description
 `
-    const services = await query(sql,[id])
+    const services = await query(sql, [id])
     return services
 }
 export default { Listar, Create, Edit, Delet, ListarServicos }
