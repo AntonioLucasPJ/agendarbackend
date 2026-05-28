@@ -57,7 +57,7 @@ async function Delet(id) {
 }
 async function ListarServicos(id) {
     let sql = `
-    SELECT S.id_service,S.service,S.description,M.price
+    SELECT S.id_service,S.service,S.description,S.icone_id,M.price
     FROM mecanicos_services M
     JOIN services S on (S.id_service = M.id_service)
     where m.id_mecanico =?

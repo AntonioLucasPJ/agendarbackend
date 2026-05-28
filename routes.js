@@ -12,7 +12,6 @@ routes.post("/mecanicos",token.ValidateToken,controllermecanicos.Inserir)
 routes.put("/mecanicos/:id",token.ValidateToken,controllermecanicos.Edit)
 routes.delete("/mecanicos/:id",token.ValidateToken,controllermecanicos.Delet)
 routes.get("/mecanicos/:id/services",token.ValidateToken,controllermecanicos.ListarServicos)
-
 //Users
 routes.post('/users/singup',controlleusers.Inserir)
 routes.post('/users/login',controlleusers.Login)
@@ -26,7 +25,6 @@ routes.delete('/appointments/delete/:id_appointment',token.ValidateToken,control
 routes.post('/appointements/check',token.ValidateToken,controlerAppointments.HorariosCheck)
 //Manager Web
 routes.get('/appointmentsall',token.ValidateToken,controlerAppointments.ManagerReservas)
-
 //Administradores
 routes.post("/admin",controlerAdmin.Create) 
 routes.post("/admin/login",controlerAdmin.Login)
