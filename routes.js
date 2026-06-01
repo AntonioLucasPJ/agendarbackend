@@ -12,6 +12,7 @@ routes.post("/mecanicos",token.ValidateToken,controllermecanicos.Inserir)
 routes.put("/mecanicos/:id",token.ValidateToken,controllermecanicos.Edit)
 routes.delete("/mecanicos/:id",token.ValidateToken,controllermecanicos.Delet)
 routes.get("/mecanicos/:id/services",token.ValidateToken,controllermecanicos.ListarServicos)
+
 //Users
 routes.post('/users/singup',controlleusers.Inserir)
 routes.post('/users/login',controlleusers.Login)

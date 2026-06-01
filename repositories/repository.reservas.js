@@ -27,7 +27,7 @@ async function Listar(id_user) {
     let sql = `
     SELECT 
     A.id_appointment,
-    S.description as service,
+    S.service as service,
     M.name as mecanico,
     M.specialty as especializacao,
     MS.price,
