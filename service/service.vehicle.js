@@ -3,4 +3,8 @@ async function Search(){
     const reservas = await repositoryVehicle.Search() 
     return reservas
 }
-export default {Search}
+async function SearchModels(id_brands){
+    const models = await repositoryVehicle.SearchModels(id_brands)
+    return models
+}
+export default {Search,SearchModels}

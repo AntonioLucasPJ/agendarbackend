@@ -7,4 +7,13 @@ async function Search() {
     const reservas = await query(sql)
     return reservas
 }
-export  default {Search}
+async function SearchModels(id_brands) {
+    let sql = `
+    SELECT * 
+    FROM vehicle_models
+    WHERE brands_id =?
+    `
+    const reservas = await query(sql,id_brands)
+    return reservas
+}
+export  default {Search,SearchModels}

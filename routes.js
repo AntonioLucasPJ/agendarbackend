@@ -29,7 +29,7 @@ routes.post('/appointements/check',token.ValidateToken,controlerAppointments.Hor
             
 //Vehicle
 routes.get('/vehicle/brands',token.ValidateToken,controlerVehicle.Search)
-
+routes.post('/vehicle/models',token.ValidateToken,controlerVehicle.SearchModels)
 //Manager Web
 routes.get('/appointmentsall',token.ValidateToken,controlerAppointments.ManagerReservas)
 //Administradores
