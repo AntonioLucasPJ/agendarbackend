@@ -4,6 +4,7 @@ import controlleusers from './controller/controler.users.js'
 import controlerAppointments from './controller/controler.appointments.js'
 import controlerAdmin from './controller/controler.admin.js'
 import token from './token.js'
+import controlerVehicle from './controller/controler.vehicle.js'
 export const routes = express.Router()
 
 //Mecanicos
@@ -25,6 +26,10 @@ routes.put('/appointments/edit/:id_appointment',token.ValidateToken,controlerApp
 routes.post('/appointments/filter',token.ValidateToken,controlerAppointments.Filter)
 routes.delete('/appointments/delete/:id_appointment',token.ValidateToken,controlerAppointments.Delete)
 routes.post('/appointements/check',token.ValidateToken,controlerAppointments.HorariosCheck)
+            
+//Vehicle
+routes.get('/vehicle/brands',token.ValidateToken,controlerVehicle.Search)
+
 //Manager Web
 routes.get('/appointmentsall',token.ValidateToken,controlerAppointments.ManagerReservas)
 //Administradores

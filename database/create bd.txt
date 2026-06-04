@@ -42,3 +42,30 @@ create table appointments(
     foreign key (id_user) references users(id_user)
     
 );
+
+
+-- 1. Tabela de Marcas (Brands)
+CREATE TABLE brands (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE
+);
+
+-- 2. Tabela de Modelos (Vehicle_Models) - Apontando para 'brands'
+CREATE TABLE vehicle_models (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    brands_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    FOREIGN KEY (brands_id) REFERENCES brands(id) ON DELETE CASCADE
+);
+
+-- 3. Tabela de Veículos do Cliente - Corrigida para apontar para 'vehicle_models'
+CREATE TABLE veiculos_cliente (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    usuario_id INTEGER NOT NULL,
+    modelo_id INTEGER NOT NULL,
+    placa TEXT NOT NULL UNIQUE,
+    cor TEXT NOT NULL,
+    -- O ERRO ESTAVA AQUI: Deve apontar para vehicle_models(id), e não para models(id)
+    FOREIGN KEY (modelo_id) REFERENCES vehicle_models(id), 
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
