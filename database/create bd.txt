@@ -59,7 +59,7 @@ CREATE TABLE vehicle_models (
 );
 
 -- 3. Tabela de Veículos do Cliente - Corrigida para apontar para 'vehicle_models'
-CREATE TABLE veiculos_cliente (
+CREATE TABLE vehicle_client (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     usuario_id INTEGER NOT NULL,
     modelo_id INTEGER NOT NULL,

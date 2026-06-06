@@ -30,6 +30,8 @@ routes.post('/appointements/check',token.ValidateToken,controlerAppointments.Hor
 //Vehicle
 routes.get('/vehicle/brands',token.ValidateToken,controlerVehicle.Search)
 routes.post('/vehicle/models',token.ValidateToken,controlerVehicle.SearchModels)
+routes.post('/vehicle/singupvehicle',token.ValidateToken,controlerVehicle.CreateClientVehicle)
+
 //Manager Web
 routes.get('/appointmentsall',token.ValidateToken,controlerAppointments.ManagerReservas)
 //Administradores
