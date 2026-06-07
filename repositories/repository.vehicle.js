@@ -28,4 +28,21 @@ async function SearchModels(id_brands) {
     return reservas
 }
 
-export default { CreateClientVehicle, Search, SearchModels, }
+async function SearchVehicleClients(id_user) {
+    let sql = `
+        SELECT 
+        brands.name AS brand,
+        brands.imagem_url,
+        vehicle_models.name AS model,
+        vehicle_clients.id_user,
+        vehicle_clients.license_plate,
+        vehicle_clients.color
+        FROM vehicle_clients
+        INNER JOIN vehicle_models  on vehicle_models.id = vehicle_clients.model_id
+        INNER JOIN brands on vehicle_models.brands_id = brands.id 
+        WHERE id_user = ?
+        `
+    const searchvehicle = await query(sql, id_user)
+    return searchvehicle
+}
+export default { CreateClientVehicle, Search, SearchModels, SearchVehicleClients }

@@ -12,4 +12,9 @@ async function SearchModels(id_brands){
     const models = await repositoryVehicle.SearchModels(id_brands)
     return models
 }
-export default {CreateClientVehicle,Search,SearchModels}
+
+async function SearchVehicleClients(id_user){
+    const models = await repositoryVehicle.SearchVehicleClients(id_user)
+    return models
+}
+export default {CreateClientVehicle,Search,SearchModels,SearchVehicleClients}

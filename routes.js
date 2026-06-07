@@ -31,6 +31,7 @@ routes.post('/appointements/check',token.ValidateToken,controlerAppointments.Hor
 routes.get('/vehicle/brands',token.ValidateToken,controlerVehicle.Search)
 routes.post('/vehicle/models',token.ValidateToken,controlerVehicle.SearchModels)
 routes.post('/vehicle/singupvehicle',token.ValidateToken,controlerVehicle.CreateClientVehicle)
+routes.get('/vehicle/searchvehicle',token.ValidateToken,controlerVehicle.SearchVehicleClients)
 
 //Manager Web
 routes.get('/appointmentsall',token.ValidateToken,controlerAppointments.ManagerReservas)
