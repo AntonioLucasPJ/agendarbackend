@@ -34,6 +34,7 @@ async function SearchVehicleClients(id_user) {
         brands.name AS brand,
         brands.imagem_url,
         vehicle_models.name AS model,
+        vehicle_models.image_url AS imagemcar,
         vehicle_clients.id_user,
         vehicle_clients.license_plate,
         vehicle_clients.color
