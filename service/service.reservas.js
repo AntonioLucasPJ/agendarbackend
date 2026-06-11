@@ -1,4 +1,3 @@
-import { reverse } from 'dns'
 import reporeservas from '../repositories/repository.reservas.js'
 
 async function ManagerReservas(id_user){

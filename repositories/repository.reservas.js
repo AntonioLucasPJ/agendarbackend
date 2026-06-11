@@ -5,7 +5,7 @@ async function ManagerReservas(id_user) {
     let sql = `
    SELECT 
     A.id_appointment as id_appointment,
-    S.description as service,
+    S.service as service,
     M.name as mecanico,
     M.specialty as especializacao,
     MS.price,
@@ -115,7 +115,6 @@ async function HorariosCheck(id_mecanico, booking_date) {
     booking_hour
     from appointments
     where id_mecanico = ? AND booking_date = ?
-
     `
     const checkhora = await query(sql,[id_mecanico,booking_date])
     return checkhora
