@@ -10,8 +10,12 @@ async function SearchServices(){
     return search
 }
 
-async function EditServices(id_service,service,description,icone_id){
-    const editservice  = await repositoriesService.EditServices(id_service,service,description,icone_id)
+async function EditServices(id_service,service,description,icone_id,status){
+    const editservice  = await repositoriesService.EditServices(id_service,service,description,icone_id,status)
     return editservice
 }
-export default {SearchServices,CreateServices,EditServices}
+async function DeleteService(id_service){
+    const deleteservice = await repositoriesService.DeleteServices(id_service)
+    return deleteservice
+}
+export default {SearchServices,CreateServices,EditServices,DeleteService}

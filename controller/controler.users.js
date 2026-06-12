@@ -1,9 +1,7 @@
 import servicosusers from '../service/service.users.js'
 async function Inserir(req, res) {
     const { name, email,cpf,telefone, password } = req.body;
-    console.log(name)
     const users = await servicosusers.Inserir(name, email,cpf,telefone, password)
-    console.log(users)
     if(users =="Já existe este CPF ou email cadastrado na base"){
         res.status(302).json(users)
     }

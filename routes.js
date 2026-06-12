@@ -41,6 +41,7 @@ routes.get('/appointmentsall',token.ValidateToken,controlerAppointments.ManagerR
 routes.get('/servicessearch',token.ValidateToken,controlerService.SearchServices)
 routes.post('/servicessearch',token.ValidateToken,controlerService.CreateServices)
 routes.put('/servicessearch/:id_service',token.ValidateToken,controlerService.EditServices)
+routes.delete('/servicessearch/:id_service',token.ValidateToken,controlerService.DeleteService)
 
 //Administradores
 routes.post("/admin",controlerAdmin.Create) 
