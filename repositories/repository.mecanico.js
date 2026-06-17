@@ -7,16 +7,15 @@ async function Listar(name) {
     id_mecanico,
     name,
     titulo_profissional,
-    services,
-    genero,
+    specialty,
+    icon,
     avatar_url,
     avaliacao,
     experiencia,
-    telefone,
-    email,
-    descricao,
-    cpf,
-    ativo
+    CASE
+        WHEN ativo =1 THEN 'Ativo'
+        ELSE 'Inativo'
+    END AS 'situacao'
     from mecanicos `
     if (name) {
         sql = sql + 'where name like ? ';
@@ -27,23 +26,8 @@ async function Listar(name) {
     return mecanicos
 }
 
-async function Create(name, services, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf) {
-    let listaservicos = [];
-    try {
-        if(Array.isArray(services)){
-            console.log(services)
-            listaservicos = services
-        } else if (typeof services === 'string' && services.trim()!== ''){
-            const parsed = JSON.parse(services)
-            listaservicos = Array.isArray(parsed) ? parsed :[parsed]
-        }else if ( typeof services === 'number'){
-            listaservicos = [services]
-        }
-    }catch(error){
-        if( typeof services === 'string'){
-            listaservicos = [parseInt(services,10)]
-        }
-    }
+async function Create(name, specialty, icon, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf) {
+    const listaservicos = Array.isArray(specialty) ? specialty : JSON.parse(specialty)
     const checkname = await Listar(name)
     if (checkname.length >= 1) {
         return 'Usuario ja existe na base'
@@ -51,11 +35,11 @@ async function Create(name, services, genero, titulo_profissional, avatar_url, e
         try {
             //Simula o acesso ao banco
             let sql = `
-        INSERT INTO MECANICOS(name,services,genero,ativo,titulo_profissional,avatar_url,avaliacao,experiencia,telefone,email,descricao,cpf) 
-        VALUES(?,?,?,'A',?,?,0,?,?,?,?,?)
+        INSERT INTO MECANICOS(name,specialty,icon,ativo,titulo_profissional,avatar_url,avaliacao,experiencia,telefone,email,descricao,cpf) 
+        VALUES(?,?,?,'1',?,?,0,?,?,?,?,?)
         returning id_mecanico
         `
-            const createmecanicos = await query(sql, [name, listaservicos, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf])
+            const createmecanicos = await query(sql, [name, listaservicos, icon, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf])
             let id = createmecanicos[0].id_mecanico
             let msg = `ID -${id}  usuario cadastro no banco`
             if (listaservicos.length > 0) {
@@ -95,7 +79,7 @@ async function Delet(id) {
 }
 async function ListarServicos(id) {
     let sql = `
-    SELECT S.id_service,S.service,S.description,S.icone_id
+    SELECT S.id_service,S.service,S.description,S.icone_id,M.price
     FROM mecanicos_services M
     JOIN services S on (S.id_service = M.id_service)
     where m.id_mecanico =?

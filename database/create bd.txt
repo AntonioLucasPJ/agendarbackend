@@ -34,12 +34,14 @@ create table mecanicos_services (
     id_mecanico_service INTEGER PRIMARY KEY AUTOINCREMENT,
     id_mecanico INTEGER,
     id_service INTEGER,
-    foreign key (id_mecanico) references mecanicos(id),
+    price     DECIMAL(9,2),
+    foreign key (id_mecanico) references mecanicos(id_mecanico),
     foreign key (id_service) references services(id_service)
 );
 create table appointments(
     id_appointment INTEGER PRIMARY KEY AUTOINCREMENT,
     id_mecanico INTEGER,
+    id_service INTERGER,
     id_user INTEGER,
     booking_date DATE,
     booking_hour VARCHAR(5),

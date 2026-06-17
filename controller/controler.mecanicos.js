@@ -6,8 +6,8 @@ async function Listar(req, res) {
     res.status(200).json(mecanicos)
 }
 async function Inserir(req, res) {
-    const { name, services, genero,titulo_profissional,avatar_url,experiencia,telefone,email,descricao,cpf } = req.body;
-    const mecanicos = await serviceMecanico.Create(name, services, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf)
+    const { name, specialty, icon,titulo_profissional,avatar_url,experiencia,telefone,email,descricao,cpf } = req.body;
+    const mecanicos = await serviceMecanico.Create(name, specialty, icon,titulo_profissional,avatar_url,experiencia,telefone,email,descricao,cpf)
     res.status(201).json({message:`${mecanicos}`})
 }
 async function Edit(req, res) {

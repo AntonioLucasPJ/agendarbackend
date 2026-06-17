@@ -10,8 +10,8 @@ async function Reservas(req,res){
     res.status(200).json(reservas)
 }
 async function Inserir(req,res){
-    const {id_user,id_mecanico,services,booking_date,booking_hour} =  req.body;
-    const reservas = await serviceReservas.Inserir(id_mecanico,services,booking_date,booking_hour,id_user)
+    const {id_user,id_mecanico,id_service,booking_date,booking_hour} =  req.body;
+    const reservas = await serviceReservas.Inserir(id_mecanico,id_service,booking_date,booking_hour,id_user)
     res.status(201).json({message:'Reserva cadastrada!!'})
 }
 async function Edit(req,res){
