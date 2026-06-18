@@ -8,8 +8,8 @@ async function Listar(id_user){
     const reservas = await reporeservas.Listar(id_user) 
     return reservas
 }
-async function Inserir (id_mecanico,id_service,booking_date,booking_hour,id_user){
-    const reservas = await reporeservas.Inserir(id_mecanico,id_service,booking_date,booking_hour,id_user) 
+async function Inserir (id_mecanico,services,booking_date,booking_hour,id_user){
+    const reservas = await reporeservas.Inserir(id_mecanico,services,booking_date,booking_hour,id_user) 
     return reservas
 }
 async function Edit(id_appointment,id_mecanico,id_service,booking_date,booking_hour){

@@ -3,13 +3,13 @@ async function Listar(name) {
     const mecanicos = await RepoMecanico.Listar(name)
     return mecanicos
 }
-async function Create(name, specialty, icon,titulo_profissional,avatar_url,experiencia,telefone,email,descricao,cpf) {
-    const mecanicos = await RepoMecanico.Create(name, specialty, icon,titulo_profissional,avatar_url,experiencia,telefone,email,descricao,cpf)
+async function Create(name, services, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf) {
+    const mecanicos = await RepoMecanico.Create(name, services, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf)
     return mecanicos
 }
 
-async function Edit(id,name, speality, icon) {
-    const mecanicos = await RepoMecanico.Edit(id,name, speality, icon)
+async function Edit(id,name, services, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf,ativo) {
+    const mecanicos = await RepoMecanico.Edit(id,name, services, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf,ativo)
     return mecanicos
 }
 async function Delet(id){

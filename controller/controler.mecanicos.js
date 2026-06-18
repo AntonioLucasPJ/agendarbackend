@@ -6,15 +6,15 @@ async function Listar(req, res) {
     res.status(200).json(mecanicos)
 }
 async function Inserir(req, res) {
-    const { name, specialty, icon,titulo_profissional,avatar_url,experiencia,telefone,email,descricao,cpf } = req.body;
-    const mecanicos = await serviceMecanico.Create(name, specialty, icon,titulo_profissional,avatar_url,experiencia,telefone,email,descricao,cpf)
+    const { name, services, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf } = req.body;
+    const mecanicos = await serviceMecanico.Create(name, services, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf)
     res.status(201).json({message:`${mecanicos}`})
 }
 async function Edit(req, res) {
     const { id } = req.params;
-    const { name, speality, icon } = req.body;
-    const mecanico = await serviceMecanico.Edit(id, name, speality, icon)
-    res.status(200).json({ mecanico })
+    const {name, services, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf,ativo } = req.body;
+    const mecanico = await serviceMecanico.Edit(id,name, services, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf,ativo)
+    res.status(200).json({message:'Cadastro Editado com sucesso', mecanico })
 }
 async function Delet(req, res) {
     const { id } = req.params;
