@@ -33,9 +33,8 @@ async function Listar(name) {
 }
 
 async function Create(name, services, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf) {
-    const listaservicos = Array.isArray(services) ? specialty : JSON.parse(services)
+    const listaservicos = Array.isArray(services) ? services : JSON.parse(services)
     const checkname = await Listar(name)
-    console.log(checkname)
     if (checkname.length >= 1) {
         return 'Usuario ja existe na base'
     } else {
@@ -71,8 +70,7 @@ async function Create(name, services, genero, titulo_profissional, avatar_url, e
 
 
 async function Edit(id, name, services, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf, ativo) {
-    const listaservicos = Array.isArray(services) ? specialty : JSON.parse(services)
-    console.log(ativo)
+    const listaservicos = Array.isArray(services) ? services : JSON.parse(services)
     //Simula o acesso ao banco
     let sql = `update mecanicos 
     set name=?,
@@ -86,17 +84,25 @@ async function Edit(id, name, services, genero, titulo_profissional, avatar_url,
     descricao=?,
     cpf=?,
     ativo=?
-    WHERE id_mecanico =?`
-    await query(sql, [name, services, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf, ativo, id])
+    WHERE id_mecanico =?
+    returning id_mecanico
+    `
+    const edit = await query(sql, [name, services, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf, ativo, id])
+    const id_mecanico = edit[0].id_mecanico
+    let sql_delete = `
+            DELETE FROM mecanicos_services
+            WHERE id_mecanico =?
+        `
+    const deletemecanico_service = await query(sql_delete, [id_mecanico])
     if (listaservicos.length > 0) {
         for (const id_service of listaservicos) {
             let sqlservices = `
-            INSERT INTO mecanicos_services(id_mecanico,id_service)VALUES
+            INSERT INTO  mecanicos_services(id_mecanico,id_service) VALUES
             (?,?)
             returning id_mecanico_service
             `
-            let createidservice = await query(sqlservices, [id, id_service])
-            let msg2 = 'Usuario cadastrado no BD' + createmecanicos[0].id_mecanico_service
+            let createidservice = await query(sqlservices, [id_mecanico, id_service])
+            let msg2 = 'Usuario cadastrado no BD' + id_mecanico
         }
 
     }

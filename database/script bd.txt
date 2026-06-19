@@ -26,11 +26,11 @@ CREATE TABLE IF NOT EXISTS mecanicos (
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-create table services (
+CREATE TABLE IF NOT EXISTS services (
     id_service INTEGER PRIMARY KEY AUTOINCREMENT,
     description VARCHAR (50)
 );
-create table mecanicos_services (
+CREATE TABLE IF NOT EXISTS mecanicos_services (
     id_mecanico_service INTEGER PRIMARY KEY AUTOINCREMENT,
     id_mecanico INTEGER,
     id_service INTEGER,
