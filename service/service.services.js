@@ -5,8 +5,8 @@ async function CreateServices(service,description,icone_id){
     const createservice = await repositoriesService.CreateServices(service,description,icone_id)
     return createservice
 }
-async function SearchServices(){
-    const search = await repositoriesService.SearchServices()
+async function SearchServices(ativo){
+    const search = await repositoriesService.SearchServices(ativo)
     return search
 }
 

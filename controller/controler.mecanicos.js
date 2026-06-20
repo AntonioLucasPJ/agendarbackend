@@ -1,8 +1,9 @@
 import { setServers } from 'dns'
 import serviceMecanico from '../service/service.mecanicos.js'
+import repositoryMecanico from '../repositories/repository.mecanico.js'
 async function Listar(req, res) {
-    const { name } = req.query
-    const mecanicos = await serviceMecanico.Listar(name)
+    const { name,ativo } = req.query
+    const mecanicos = await serviceMecanico.Listar(name,ativo)
     res.status(200).json(mecanicos)
 }
 async function Inserir(req, res) {
@@ -18,6 +19,18 @@ async function Edit(req, res) {
 }
 async function Delet(req, res) {
     const { id } = req.params;
+    const checkappointmentmecanico = await repositoryMecanico.CheckAppointmentMecanicos(id)
+    console.log(checkappointmentmecanico)
+    let testect = checkappointmentmecanico.length >0 
+    console.log(testect)
+    if (checkappointmentmecanico.length >0){
+        console.log(checkappointmentmecanico)
+        let listappointmentmec = []
+        for (let checkappoint of checkappointmentmecanico){
+            listappointmentmec.push(checkappoint.id_appointment)
+        }
+        return res.status(400).json({message:`O mecanico possui os agendamentos n° ${listappointmentmec} vinculados`})
+    }
     const mecanico = await serviceMecanico.Delet(id)
     res.status(200).json(mecanico)
 }

@@ -1,6 +1,17 @@
 
 import { query } from "../database/sqlite.js"
-async function Listar(name) {
+
+async function CheckAppointmentMecanicos(id){
+    let sql = `
+    SELECT 
+    id_appointment
+    FROM appointments
+    WHERE id_mecanico =?
+    `
+    const mecanicosappointments = await query(sql,id)
+    return mecanicosappointments
+}
+async function Listar(name, ativo) {
     //Simula o acesso ao banco
     let filtro = [];
     let sql = ` 
@@ -21,13 +32,15 @@ async function Listar(name) {
     FROM mecanicos M
     LEFT JOIN  mecanicos_services ON mecanicos_services.id_mecanico = M.id_mecanico 
     LEFT JOIN services ON services.id_service = mecanicos_services.id_service
-    GROUP BY M.id_mecanico
  `
     if (name) {
-        sql = sql + 'where M.name like ? ';
+        sql = sql + 'where M.name like ? GROUP BY M.id_mecanico';
         filtro.push('%' + name + '%')
     }
-    sql = sql + ' order by name'
+    else {
+        sql = sql +'GROUP BY M.id_mecanico'
+    }
+    sql = sql + ' order by M.name'
     const mecanicos = await query(sql, filtro)
     return mecanicos
 }
@@ -42,7 +55,7 @@ async function Create(name, services, genero, titulo_profissional, avatar_url, e
             //Simula o acesso ao banco
             let sql = `
         INSERT INTO MECANICOS(name,services,genero,ativo,titulo_profissional,avatar_url,avaliacao,experiencia,telefone,email,descricao,cpf) 
-        VALUES(?,?,?,'1',?,?,0,?,?,?,?,?)
+        VALUES(?,?,?,'A',?,?,0,?,?,?,?,?)
         returning id_mecanico
         `
             const createmecanicos = await query(sql, [name, listaservicos, genero, titulo_profissional, avatar_url, experiencia, telefone, email, descricao, cpf])
@@ -114,7 +127,7 @@ async function Delet(id) {
     let deleteservice = `delete from mecanicos_services where id_mecanico=?`
     await query(deletemecanico, [id])
     await query(deleteservice, [id])
-    return { id }
+    return `${id} Mecanico Deletado com sucesso!` 
 }
 async function ListarServicos(id) {
     let sql = `
@@ -128,4 +141,4 @@ async function ListarServicos(id) {
     const services = await query(sql, [id])
     return services
 }
-export default { Listar, Create, Edit, Delet, ListarServicos }
+export default { Listar, Create, Edit, Delet, ListarServicos,CheckAppointmentMecanicos }

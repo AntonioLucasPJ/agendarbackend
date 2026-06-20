@@ -1,3 +1,4 @@
+import { json } from "express";
 import repositoryServices from "../repositories/repository.services.js";
 import servicessearch from "../service/service.services.js";
 
@@ -12,7 +13,8 @@ async function CreateServices(req, res) {
     res.status(200).json({ message: `Servico cadastrado com sucesso n° ${createret.id_service}` })
 }
 async function SearchServices(req, res) {
-    const search = await servicessearch.SearchServices()
+    const {ativo} = req.query;
+    const search = await servicessearch.SearchServices(ativo)
     res.status(200).json(search)
 }
 async function EditServices(req, res) {
@@ -24,6 +26,10 @@ async function EditServices(req, res) {
 
 async function DeleteService(req, res) {
     const { id_service } = req.params;
+    const checkappointmentservice = await  repositoryServices.Checkappointment(id_service)
+    if(checkappointmentservice.length >0){
+        return res.status(400).json({message:`O servico possui vinculo com o agendamento n° ${checkappointmentservice}`})
+    }
     const consultid = await repositoryServices.SearchdeleteService(id_service)
     if (consultid.length > 0) {
         const deleteservice = await servicessearch.DeleteService(id_service)
