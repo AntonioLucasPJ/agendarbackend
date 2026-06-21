@@ -1,5 +1,19 @@
 import { query } from "../database/sqlite.js"
 
+async function ManagerVehicle(){
+    let sql = `
+    SELECT 
+    vehicle_models.id,
+    brands.imagem_url AS logo,
+    brands.name AS brand,
+    vehicle_models.name AS model,
+    vehicle_models.image_url AS car 
+    FROM brands
+    INNER JOIN vehicle_models ON vehicle_models.brands_id = brands.id
+    `
+    const check = await query(sql)
+    return check
+}
 async function CreateClientVehicle(id_user, model_id, license_plate, color) {
     let sql = `
     INSERT INTO vehicle_clients(id_user,model_id,license_plate,color) VALUES
@@ -9,7 +23,15 @@ async function CreateClientVehicle(id_user, model_id, license_plate, color) {
     const singupvehicle = await query(sql, [id_user, model_id, license_plate, color])
     return singupvehicle
 }
-
+async function CreateModelVehicle(brand, model,ano, image) {
+    let sql = `
+    INSERT INTO vehicle_models(brands_id,name,year,image_url) VALUES
+    (?,?,?,?)
+    returning id
+    `
+    const vehiclemodels = await query(sql, [brand, model,ano, image])
+    return vehiclemodels
+}
 async function Search() {
     let sql = `
     SELECT * 
@@ -47,4 +69,4 @@ async function SearchVehicleClients(id_user) {
     const searchvehicle = await query(sql, id_user)
     return searchvehicle
 }
-export default { CreateClientVehicle, Search, SearchModels, SearchVehicleClients }
+export default { CreateClientVehicle,CreateModelVehicle, Search, SearchModels, SearchVehicleClients,ManagerVehicle }
