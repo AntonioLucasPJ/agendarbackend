@@ -12,6 +12,14 @@ async function CreateModelVehicle(brand,model,ano,image){
     const vehiclemodels = await repositoryVehicle.CreateModelVehicle(brand,model,ano,image)
     return vehiclemodels
 }
+async function EditModel(id, model, year,status){
+    const editmodel = await repositoryVehicle.EditModel(id, model, year,status)
+    return editmodel
+}
+async function DeleteModelVehicle(id){
+    const deletevehiclemodel = await repositoryVehicle.DeleteModelVehicle(id)
+    return deletevehiclemodel
+}
 async function Search(){
     const reservas = await repositoryVehicle.Search() 
     return reservas
@@ -25,4 +33,4 @@ async function SearchVehicleClients(id_user){
     const models = await repositoryVehicle.SearchVehicleClients(id_user)
     return models
 }
-export default {CreateClientVehicle,CreateModelVehicle,Search,SearchModels,SearchVehicleClients,ManagerVehicle}
+export default {CreateClientVehicle,CreateModelVehicle,EditModel,DeleteModelVehicle,Search,SearchModels,SearchVehicleClients,ManagerVehicle}
