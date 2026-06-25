@@ -6,6 +6,26 @@ cloudinary.config({
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
+async function SearchLicensePLate(license_plate) {
+    let sql = `
+        SELECT 
+        *
+        FROM vehicle_clients
+        WHERE license_plate =?
+    `
+    const check = await query(sql, [license_plate])
+    return check
+}
+async function SearchConnectClientVehicle(id) {
+    const sql = `
+    SELECT 
+    id_user
+    FROM vehicle_clients
+    WHERE model_id =?
+    `
+    const checkclientsmodel = await query(sql,[id])
+    return checkclientsmodel
+}
 async function ManagerVehicle() {
     let sql = `
     SELECT 
@@ -23,13 +43,13 @@ async function ManagerVehicle() {
     const check = await query(sql)
     return check
 }
-async function CreateClientVehicle(id_user, model_id, license_plate, color) {
+async function CreateClientVehicle(user_id, model_id, car_license_plate, color) {
     let sql = `
     INSERT INTO vehicle_clients(id_user,model_id,license_plate,color) VALUES
     (?,?,?,?)
     returning id
     `
-    const singupvehicle = await query(sql, [id_user, model_id, license_plate, color])
+    const singupvehicle = await query(sql, [user_id, model_id, car_license_plate, color])
     return singupvehicle
 }
 async function CreateModelVehicle(brand, model, ano, image) {
@@ -41,7 +61,7 @@ async function CreateModelVehicle(brand, model, ano, image) {
     const vehiclemodels = await query(sql, [brand, model, ano, image])
     return vehiclemodels
 }
-async function EditModel(id, model, year,status) {
+async function EditModel(id, model, year, status) {
     let sql = `
     UPDATE  
     vehicle_models
@@ -51,7 +71,7 @@ async function EditModel(id, model, year,status) {
     WHERE id=?
     returning id
     `
-    const vehiclemodels = await query(sql, [model, year, status,id])
+    const vehiclemodels = await query(sql, [model, year, status, id])
     return vehiclemodels
 }
 async function DeleteModelVehicle(id) {
@@ -82,6 +102,17 @@ async function DeleteModelVehicle(id) {
     }
     return "Veiculo deletado"
 }
+async function DeleteClientVehicle(id) {
+
+    let sql = `
+    DELETE FROM 
+    vehicle_clients
+    WHERE id =?
+    returning id
+    `
+    const deletevehicleclient = await query(sql, [id])
+    return deletevehicleclient
+}
 async function Search() {
     let sql = `
     SELECT * 
@@ -107,6 +138,8 @@ async function SearchVehicleClients(id_user) {
         brands.imagem_url,
         vehicle_models.name AS model,
         vehicle_models.image_url AS imagemcar,
+        vehicle_models.status,
+        vehicle_models.year,
         vehicle_clients.id,
         vehicle_clients.id_user,
         vehicle_clients.license_plate,
@@ -119,4 +152,4 @@ async function SearchVehicleClients(id_user) {
     const searchvehicle = await query(sql, id_user)
     return searchvehicle
 }
-export default { CreateClientVehicle, CreateModelVehicle,EditModel, DeleteModelVehicle, Search, SearchModels, SearchVehicleClients, ManagerVehicle }
+export default { CreateClientVehicle, CreateModelVehicle, SearchConnectClientVehicle,EditModel, SearchLicensePLate, DeleteModelVehicle, DeleteClientVehicle, Search, SearchModels, SearchVehicleClients, ManagerVehicle }

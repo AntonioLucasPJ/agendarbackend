@@ -4,8 +4,8 @@ async function ManagerVehicle(){
     const managervehicle = await repositoryVehicle.ManagerVehicle()
     return managervehicle
 }
-async function CreateClientVehicle(id_user,model_id,license_plate,color){
-    const singupvehicle = await repositoryVehicle.CreateClientVehicle(id_user,model_id,license_plate,color) 
+async function CreateClientVehicle(user_id,model_id,car_license_plate,color){
+    const singupvehicle = await repositoryVehicle.CreateClientVehicle(user_id,model_id,car_license_plate,color) 
     return singupvehicle
 }
 async function CreateModelVehicle(brand,model,ano,image){
@@ -20,6 +20,10 @@ async function DeleteModelVehicle(id){
     const deletevehiclemodel = await repositoryVehicle.DeleteModelVehicle(id)
     return deletevehiclemodel
 }
+async function DeleteClientVehicle(id){
+    const deletevehicleclient = await repositoryVehicle.DeleteClientVehicle(id)
+    return deletevehicleclient
+}
 async function Search(){
     const reservas = await repositoryVehicle.Search() 
     return reservas
@@ -33,4 +37,4 @@ async function SearchVehicleClients(id_user){
     const models = await repositoryVehicle.SearchVehicleClients(id_user)
     return models
 }
-export default {CreateClientVehicle,CreateModelVehicle,EditModel,DeleteModelVehicle,Search,SearchModels,SearchVehicleClients,ManagerVehicle}
+export default {CreateClientVehicle,CreateModelVehicle,EditModel,DeleteModelVehicle,DeleteClientVehicle,Search,SearchModels,SearchVehicleClients,ManagerVehicle}

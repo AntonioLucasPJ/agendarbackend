@@ -33,9 +33,10 @@ routes.get('/vehicle/brands',token.ValidateToken,controlerVehicle.Search)
 routes.post('/vehicle/models',token.ValidateToken,controlerVehicle.SearchModels)
 routes.post('/vehicle/singupvehicle',token.ValidateToken,controlerVehicle.CreateClientVehicle)
 routes.post('/vehicle/modelvehicle',token.ValidateToken,controlerVehicle.CreateModelVehicle)
-routes.get('/vehicle/searchvehicle',token.ValidateToken,controlerVehicle.SearchVehicleClients)
+routes.post('/vehicle/searchvehicle/:id_user',token.ValidateToken,controlerVehicle.SearchVehicleClients)
 routes.put('/vehicle/:id',token.ValidateToken,controlerVehicle.EditModel)
 routes.delete('/vehicle/delete/:id',token.ValidateToken,controlerVehicle.DeleteModelVehicle)
+routes.delete('/vehicle/clientdelete/:id',token.ValidateToken,controlerVehicle.DeleteClientVehicle)
 
 //Manager Web
 routes.get('/appointmentsall',token.ValidateToken,controlerAppointments.ManagerReservas)
