@@ -29,4 +29,15 @@ async function Profile(){
     const profile = await query(sql)
     return profile
 }
-export default {Inserir, ListarEmail,ListarCPF, Profile}
+async function Edit(){
+    let sql = `
+        UPDATE users
+        SET name =?
+        CPF =?,
+        Telefone =?,
+        Email = ?
+        WHERE id_user =?`
+    const edituser = await query(sql,[id_user])
+    return edituser
+}
+export default {Inserir, ListarEmail,ListarCPF, Profile, Edit}

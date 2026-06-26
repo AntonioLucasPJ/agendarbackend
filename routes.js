@@ -19,9 +19,9 @@ routes.get("/mecanicos/:id/services",token.ValidateToken,controllermecanicos.Lis
 routes.post('/users/singup',controlleusers.Inserir)
 routes.post('/users/login',controlleusers.Login)
 routes.get('/users/profile',token.ValidateToken,controlleusers.Profile)
-
+routes.put('/users/edit/:id_user',token.ValidateToken,controlleusers.Edit)
 //Reservas
-routes.get('/appointements',token.ValidateToken,controlerAppointments.Reservas)
+routes.get('/appointements/:id_user',token.ValidateToken,controlerAppointments.Reservas)
 routes.post('/appointements',token.ValidateToken,controlerAppointments.Inserir)
 routes.put('/appointments/edit/:id_appointment',token.ValidateToken,controlerAppointments.Edit)
 routes.post('/appointments/filter',token.ValidateToken,controlerAppointments.Filter)

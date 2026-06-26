@@ -25,23 +25,19 @@ async function ManagerReservas(id_user) {
 }
 async function Listar(id_user) {
     let sql = `
-    SELECT 
-    A.id_appointment,
-    S.service as service,
-    M.name as mecanico,
-    M.specialty as especializacao,
-    MS.price,
-    A.booking_date,
-    A.booking_hour,
-    US.name as client
-    from appointments A
-    JOIN mecanicos M on M.id_mecanico = A.id_mecanico
-    JOIN services S on S.id_service = A.id_service
-    JOIN users US on US.id_user = A.id_user
-    JOIN mecanicos_services MS on MS.id_mecanico =  A.id_mecanico
-    AND MS.id_service = A.id_service
-    WHERE A.id_user = ?
-    order by A.booking_date, A.booking_hour
+        SELECT 
+        A.id_appointment,
+        A.booking_date,
+        A.booking_hour,
+        group_concat(S.service,', ') AS service,
+        A.status
+        from appointments A
+        JOIN appointment_services APS ON APS.id_appointment = A.id_appointment
+        JOIN services S ON S.id_service = APS.id_service 
+        WHERE A.id_user =?
+        GROUP BY A.id_appointment
+        order by A.booking_date, A.booking_hour
+
     `
     const reservas = await query(sql, [id_user])
     return reservas

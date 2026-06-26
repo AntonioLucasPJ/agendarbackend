@@ -20,4 +20,10 @@ async function Profile(req,res){
     const profile = await servicosusers.Profile()
     res.status(200).json(profile)
 }
-export default { Inserir, Login, Profile }
+
+async function Edit(req,res){
+    const {id_user} = req.params;
+    const edit = await servicosusers.Edit(id_user)
+    res.status(200).json(edit)
+}
+export default { Inserir, Login, Edit,Profile }

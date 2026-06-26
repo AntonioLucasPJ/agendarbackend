@@ -5,7 +5,7 @@ async function ManagerReservas(req,res){
     res.status(200).json(reservas)
 }
 async function Reservas(req,res){
-    const {id_user} = req;
+    const {id_user} = req.params;
     const reservas = await serviceReservas.Listar(id_user)
     res.status(200).json(reservas)
 }

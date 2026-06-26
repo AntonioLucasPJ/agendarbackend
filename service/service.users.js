@@ -34,9 +34,15 @@ async function Login(email, password) {
         }
     }
 }
+async function Edit(id_user){
+    const edit = await repostoryUsers.Edit(id_user)
+    return edit
+}
 async function Profile() {
     const profile = await repostoryUsers.Profile()
     delete profile.password
     return profile
 }
-export default { ManagerReservas, Inserir, Login, Profile }
+
+
+export default { ManagerReservas, Inserir, Login, Edit,Profile }
