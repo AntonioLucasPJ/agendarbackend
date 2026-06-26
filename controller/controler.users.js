@@ -23,7 +23,8 @@ async function Profile(req,res){
 
 async function Edit(req,res){
     const {id_user} = req.params;
-    const edit = await servicosusers.Edit(id_user)
-    res.status(200).json(edit)
+    const {name,email,cpf,telefone} = req.body;
+    const edit = await servicosusers.Edit(id_user,name,email,cpf,telefone)
+    res.status(200).json({message:edit})
 }
 export default { Inserir, Login, Edit,Profile }

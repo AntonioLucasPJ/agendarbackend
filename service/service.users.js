@@ -34,8 +34,8 @@ async function Login(email, password) {
         }
     }
 }
-async function Edit(id_user){
-    const edit = await repostoryUsers.Edit(id_user)
+async function Edit(id_user,name,email,cpf,telefone){
+    const edit = await repostoryUsers.Edit(id_user,name,email,cpf,telefone)
     return edit
 }
 async function Profile() {

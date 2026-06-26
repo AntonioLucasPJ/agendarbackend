@@ -29,15 +29,17 @@ async function Profile(){
     const profile = await query(sql)
     return profile
 }
-async function Edit(){
+async function Edit(id_user,name,email,cpf,telefone){
+    console.log(name,email,cpf,telefone,id_user)
     let sql = `
         UPDATE users
-        SET name =?
+        SET name =?,
+        Email=?,
         CPF =?,
-        Telefone =?,
-        Email = ?
-        WHERE id_user =?`
-    const edituser = await query(sql,[id_user])
-    return edituser
+        Telefone =?
+        WHERE id_user =?
+    `
+    const edituser = await query(sql,[name,email,cpf,telefone,id_user])
+    return 'Usuario Atualizado'
 }
 export default {Inserir, ListarEmail,ListarCPF, Profile, Edit}
