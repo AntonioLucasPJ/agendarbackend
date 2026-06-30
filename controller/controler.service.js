@@ -39,4 +39,9 @@ async function DeleteService(req, res) {
 
 
 }
-export default { SearchServices, CreateServices, EditServices, DeleteService }
+async function CheckServicesMecanicos(req,res){
+    const {id_service} = req.params
+    const checkservicesmecanicos = await servicessearch.CheckServicesMecanicos(id_service)
+    res.status(200).json(checkservicesmecanicos)
+}
+export default { SearchServices, CreateServices, EditServices, DeleteService,CheckServicesMecanicos }

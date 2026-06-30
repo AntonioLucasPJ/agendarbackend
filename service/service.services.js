@@ -18,4 +18,8 @@ async function DeleteService(id_service){
     const deleteservice = await repositoriesService.DeleteServices(id_service)
     return deleteservice
 }
-export default {SearchServices,CreateServices,EditServices,DeleteService}
+async function CheckServicesMecanicos(id_service){
+    const checkmecanicosservices = await repositoriesService.CheckServicesMecanicos(id_service)
+    return checkmecanicosservices
+}
+export default {SearchServices,CreateServices,EditServices,DeleteService,CheckServicesMecanicos}

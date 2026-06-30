@@ -20,6 +20,7 @@ routes.post('/users/singup',controlleusers.Inserir)
 routes.post('/users/login',controlleusers.Login)
 routes.get('/users/profile',token.ValidateToken,controlleusers.Profile)
 routes.put('/users/edit/:id_user',token.ValidateToken,controlleusers.Edit)
+
 //Reservas
 routes.get('/appointements/:id_user',token.ValidateToken,controlerAppointments.Reservas)
 routes.post('/appointements',token.ValidateToken,controlerAppointments.Inserir)
@@ -47,6 +48,7 @@ routes.get('/servicessearch',token.ValidateToken,controlerService.SearchServices
 routes.post('/servicessearch',token.ValidateToken,controlerService.CreateServices)
 routes.put('/servicessearch/:id_service',token.ValidateToken,controlerService.EditServices)
 routes.delete('/servicessearch/:id_service',token.ValidateToken,controlerService.DeleteService)
+routes.get('/servicesmecanicos/:id_service',token.ValidateToken,controlerService.CheckServicesMecanicos)
 
 //Administradores
 routes.post("/admin",controlerAdmin.Create) 

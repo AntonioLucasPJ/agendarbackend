@@ -1,6 +1,6 @@
 import { query } from "../database/sqlite.js";
 
-async function Checkappointment(id){
+async function Checkappointment(id) {
     let sql = `
         SELECT 
         appointment_services.id_appointment
@@ -8,8 +8,8 @@ async function Checkappointment(id){
         JOIN appointment_services ON  appointment_services.id_service = services.id_service
         WHERE services.id_service =?
     `
-    const checkappointmentservices = await(sql,[id])
-    return checkappointmentservices            
+    const checkappointmentservices = await (sql, [id])
+    return checkappointmentservices
 }
 async function CreateServices(service, description, icone_id) {
     let sql = `
@@ -53,7 +53,7 @@ async function SearchServices(ativo) {
         FROM services
         WHERE status =?
         `
-        const service = await query(sql,[ativo])
+        const service = await query(sql, [ativo])
         return service
     }
     let sql = `
@@ -83,5 +83,21 @@ async function SearchdeleteService(id_service) {
     const consutsearch = await query(sql, [id_service])
     return consutsearch
 }
-
-export default { CheckServices, CreateServices, SearchServices, EditServices, SearchdeleteService, DeleteServices,Checkappointment }
+async function CheckServicesMecanicos(id_service) {
+    let sql = `
+        SELECT DISTINCT
+        m.id_mecanico,
+        m.name,
+        m.avaliacao,
+        m.experiencia,
+        m.descricao,
+        m.titulo_profissional
+        FROM mecanicos m
+        INNER JOIN mecanicos_services ms on ms.id_mecanico = m.id_mecanico
+        INNER JOIN services S ON S.id_service = ms.id_service
+        WHERE S.id_service =?
+    `
+    const checkservicemecanicos = await query(sql,[id_service])
+    return checkservicemecanicos
+}
+export default { CheckServices, CreateServices, SearchServices, EditServices, SearchdeleteService, DeleteServices, Checkappointment,CheckServicesMecanicos }

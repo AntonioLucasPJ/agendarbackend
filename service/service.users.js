@@ -11,7 +11,6 @@ async function ManagerReservas(id_user) {
 async function Inserir(name, email, cpf, telefone, password) {
     const validar = await Repouser.ListarCPF(cpf)
     const validar2 = await Repouser.ListarEmail(email)
-    console.log(`${validar} e ${validar2}`)
     if (validar == 0 && validar2 == 0) {
         const hashpassword = await bcrypt.hash(password, 10)
         const user = await Repouser.Inserir(name, email, cpf, telefone, hashpassword)

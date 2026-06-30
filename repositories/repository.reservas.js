@@ -42,12 +42,13 @@ async function Listar(id_user) {
     const reservas = await query(sql, [id_user])
     return reservas
 }
-async function Inserir(id_mecanico, services, booking_date, booking_hour, id_user) {
+async function Inserir(id_mecanico, services, booking_date, booking_hour,vehicle_model,license_plate, id_user) {
     let listaservicos = Array.isArray(services) ? services : JSON.parse(services)
+    const agora = new Date().toISOString()
     let sql = `
-    INSERT INTO appointments(id_mecanico,id_user,booking_date,booking_hour) VALUES(?,?,?,?)
+    INSERT INTO appointments(id_mecanico,id_user,vehicle_model,license_plate,updated_at,created_at,booking_date,booking_hour) VALUES(?,?,?,?,?,?,?,?)
     returning id_appointment`
-    const reservas = await query(sql, [id_mecanico, id_user, booking_date, booking_hour])
+    const reservas = await query(sql, [id_mecanico, id_user,vehicle_model,license_plate,agora,agora, booking_date, booking_hour])
     const id_appointment = reservas[0].id_appointment
 
     if (!Array.isArray(listaservicos)) {
