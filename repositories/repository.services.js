@@ -88,6 +88,7 @@ async function CheckServicesMecanicos(id_service) {
         SELECT DISTINCT
         m.id_mecanico,
         m.name,
+        m.avatar_url,
         m.avaliacao,
         m.experiencia,
         m.descricao,

@@ -58,4 +58,10 @@ async function SearchVehicleClients(req, res) {
     const vehicle_clients = await serviceVehicle.SearchVehicleClients(id_user)
     res.status(200).json(vehicle_clients)
 }
-export default { CreateClientVehicle, CreateModelVehicle, EditModel, DeleteModelVehicle, DeleteClientVehicle, Search, SearchModels, SearchVehicleClients, ManagerVehicle }
+async function EditVehicleClients(req,res){
+    const {id} = req.params;
+    const { license_plate, color} = req.body;
+    const editvehicle = await serviceVehicle.EditVehicleClients(id,license_plate,color)
+    res.status(200).json({message:`${editvehicle}`})
+}
+export default { CreateClientVehicle, CreateModelVehicle, EditModel, DeleteModelVehicle, DeleteClientVehicle, Search, SearchModels, SearchVehicleClients, EditVehicleClients,ManagerVehicle }

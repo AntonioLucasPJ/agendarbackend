@@ -23,7 +23,7 @@ async function SearchConnectClientVehicle(id) {
     FROM vehicle_clients
     WHERE model_id =?
     `
-    const checkclientsmodel = await query(sql,[id])
+    const checkclientsmodel = await query(sql, [id])
     return checkclientsmodel
 }
 async function ManagerVehicle() {
@@ -134,8 +134,10 @@ async function SearchModels(id_brands) {
 async function SearchVehicleClients(id_user) {
     let sql = `
         SELECT 
+        brands.id AS id_brand,
         brands.name AS brand,
         brands.imagem_url,
+        vehicle_models.id AS id_vehicle_models,
         vehicle_models.name AS model,
         vehicle_models.image_url AS imagemcar,
         vehicle_models.status,
@@ -152,4 +154,14 @@ async function SearchVehicleClients(id_user) {
     const searchvehicle = await query(sql, id_user)
     return searchvehicle
 }
-export default { CreateClientVehicle, CreateModelVehicle, SearchConnectClientVehicle,EditModel, SearchLicensePLate, DeleteModelVehicle, DeleteClientVehicle, Search, SearchModels, SearchVehicleClients, ManagerVehicle }
+async function EditVehicleClients(id, license_plate, color) {
+    let sql = `
+    UPDATE  vehicle_clients
+    SET license_plate =?,
+    color =?
+    WHERE id =?
+    `
+    const editvehicleclients = await query(sql,[license_plate,color,id])
+    return 'Informacoes Atualizadas'
+}
+export default { CreateClientVehicle, CreateModelVehicle, SearchConnectClientVehicle, EditModel, SearchLicensePLate, DeleteModelVehicle, DeleteClientVehicle, Search, SearchModels, SearchVehicleClients,EditVehicleClients, ManagerVehicle }

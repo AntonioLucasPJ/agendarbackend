@@ -37,4 +37,8 @@ async function SearchVehicleClients(id_user){
     const models = await repositoryVehicle.SearchVehicleClients(id_user)
     return models
 }
-export default {CreateClientVehicle,CreateModelVehicle,EditModel,DeleteModelVehicle,DeleteClientVehicle,Search,SearchModels,SearchVehicleClients,ManagerVehicle}
+async function EditVehicleClients(id, license_plate, color){
+    const editclients = await repositoryVehicle.EditVehicleClients(id, license_plate, color)
+    return editclients
+}
+export default {CreateClientVehicle,CreateModelVehicle,EditModel,DeleteModelVehicle,DeleteClientVehicle,Search,SearchModels,SearchVehicleClients,EditVehicleClients,ManagerVehicle}
