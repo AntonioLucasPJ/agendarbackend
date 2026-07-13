@@ -1,3 +1,4 @@
+import { json } from "express";
 import { query } from "../database/sqlite.js"
 async function Inserir(name, email,cpf,telefone, hashpassword) {
     let sql = `
@@ -30,7 +31,6 @@ async function Profile(){
     return profile
 }
 async function Edit(id_user,name,email,cpf,telefone){
-    console.log(name,email,cpf,telefone,id_user)
     let sql = `
         UPDATE users
         SET name =?,
@@ -38,8 +38,9 @@ async function Edit(id_user,name,email,cpf,telefone){
         CPF =?,
         Telefone =?
         WHERE id_user =?
+        returning name,email,telefone,cpf
     `
     const edituser = await query(sql,[name,email,cpf,telefone,id_user])
-    return 'Usuario Atualizado'
+    return edituser
 }
 export default {Inserir, ListarEmail,ListarCPF, Profile, Edit}

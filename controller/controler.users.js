@@ -1,3 +1,4 @@
+import { json } from 'express';
 import servicosusers from '../service/service.users.js'
 async function Inserir(req, res) {
     const { name, email,cpf,telefone, password } = req.body;
@@ -25,6 +26,6 @@ async function Edit(req,res){
     const {id_user} = req.params;
     const {name,email,cpf,telefone} = req.body;
     const edit = await servicosusers.Edit(id_user,name,email,cpf,telefone)
-    res.status(200).json({message:edit})
+    res.status(200).json({message:"Usuario atualizado!!",edit})
 }
 export default { Inserir, Login, Edit,Profile }
