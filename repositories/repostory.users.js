@@ -3,7 +3,7 @@ import { query } from "../database/sqlite.js"
 async function Inserir(name, email,cpf,telefone, hashpassword) {
     let sql = `
     INSERT INTO users(name, email,cpf,telefone, password) VALUES(?,?,?,?,?)
-    returning id_user`
+    returning id_user,name,email,cpf,telefone`
     const createuser = await query(sql, [name, email,cpf,telefone, hashpassword])
     return createuser[0];
 }
@@ -30,17 +30,21 @@ async function Profile(){
     const profile = await query(sql)
     return profile
 }
-async function Edit(id_user,name,email,cpf,telefone){
+async function Edit(id_user,name,email,cpf,telefone,cidade,bairro,rua,cep){
     let sql = `
         UPDATE users
         SET name =?,
         Email=?,
         CPF =?,
-        Telefone =?
+        Telefone =?,
+        cidade=?,
+        bairro=?,
+        rua=?,
+        cep=?
         WHERE id_user =?
-        returning name,email,telefone,cpf
+        returning name,email,telefone,cpf,cidade,bairro,rua,cep
     `
-    const edituser = await query(sql,[name,email,cpf,telefone,id_user])
+    const edituser = await query(sql,[name,email,cpf,telefone,cidade,bairro,rua,cep,id_user])
     return edituser
 }
 export default {Inserir, ListarEmail,ListarCPF, Profile, Edit}

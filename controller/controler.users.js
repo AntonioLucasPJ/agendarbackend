@@ -4,9 +4,9 @@ async function Inserir(req, res) {
     const { name, email,cpf,telefone, password } = req.body;
     const users = await servicosusers.Inserir(name, email,cpf,telefone, password)
     if(users =="Já existe este CPF ou email cadastrado na base"){
-        res.status(302).json(users)
+        res.status(302).json({message:users})
     }
-    res.status(200).json(users)
+    res.status(200).json({users,message:"Usuario Cadastrado"})
 }
 async function Login(req, res) {
     const { email, password } = req.body;
@@ -24,8 +24,14 @@ async function Profile(req,res){
 
 async function Edit(req,res){
     const {id_user} = req.params;
-    const {name,email,cpf,telefone} = req.body;
-    const edit = await servicosusers.Edit(id_user,name,email,cpf,telefone)
+    const {name,email,cpf,telefone,cidade,bairro,rua,cep} = req.body;
+    const edit = await servicosusers.Edit(id_user,name,email,cpf,telefone,cidade,bairro,rua,cep)
     res.status(200).json({message:"Usuario atualizado!!",edit})
+}
+
+async function ResetPassword(req,res){
+    const {password,email,senha} = req.body;
+    console.log(password)
+    res.status(200).json({message:"Redefinir Senha..."})
 }
 export default { Inserir, Login, Edit,Profile }

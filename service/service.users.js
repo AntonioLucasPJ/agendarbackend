@@ -33,8 +33,8 @@ async function Login(email, password) {
         }
     }
 }
-async function Edit(id_user,name,email,cpf,telefone){
-    const edit = await repostoryUsers.Edit(id_user,name,email,cpf,telefone)
+async function Edit(id_user,name,email,cpf,telefone,cidade,bairro,rua,cep){
+    const edit = await repostoryUsers.Edit(id_user,name,email,cpf,telefone,cidade,bairro,rua,cep)
     return edit
 }
 async function Profile() {

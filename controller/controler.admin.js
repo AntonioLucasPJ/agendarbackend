@@ -18,4 +18,9 @@ async function Login(req, res) {
     }
 
 }
-export default { Create, Login }
+async function ResetPassword(req,res){
+    const {id_user,password} = req.body;
+    const resetpass = await serviceAdmin.ResetPassword(password,id_user)
+    res.status(200).json({message:`${resetpass}`})
+}
+export default { Create, Login,ResetPassword }

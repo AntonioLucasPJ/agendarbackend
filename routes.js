@@ -53,3 +53,4 @@ routes.get('/servicesmecanicos/:id_service',token.ValidateToken,controlerService
 //Administradores
 routes.post("/admin",controlerAdmin.Create) 
 routes.post("/admin/login",controlerAdmin.Login)
+routes.put("/admin/resetuserpass",controlerAdmin.ResetPassword)

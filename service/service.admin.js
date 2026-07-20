@@ -26,4 +26,9 @@ export async function Login(email, password) {
         }
     }
 }
-export default { Create, Login }
+export async function ResetPassword(password,id_user){
+    const hashpassword = await bcrypt.hash(password,10)
+    const resetpassword = repositoryAdmin.ResetPassword(hashpassword,id_user)
+    return resetpassword
+}
+export default { Create, Login,ResetPassword }

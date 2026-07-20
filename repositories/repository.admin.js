@@ -18,5 +18,13 @@ async function ListarEmail(email) {
     return admin[0]
 
 }
-
-export default { Create, ListarEmail }
+async function ResetPassword(hashpassword,id_user){
+    let sql = `
+        UPDATE users
+        set password=?
+        WHERE id_user =?
+    `
+    const reset = await query(sql,[hashpassword,id_user])
+    return "Senha Atualizada"
+}
+export default { Create, ListarEmail, ResetPassword }
